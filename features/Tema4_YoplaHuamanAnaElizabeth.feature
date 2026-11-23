@@ -22,3 +22,22 @@ Feature: Backlog ECOFLOR, criterios de aceptación de las historias clave
       Then el sistema no guarda el registro
       And muestra el mensaje "La cantidad debe ser mayor a 0"
 
+  Rule: HU-02 Consultar stock (RF-02)
+    Como administrador
+    Quiero consultar el stock de paquetes por color y tallo
+    Para saber qué puedo ofrecer a los clientes
+
+    @HU-02 @RF-02
+    Scenario: Consulta de stock
+      Given existen cosechas y pedidos registrados
+      When consulto el stock
+      Then el sistema muestra los paquetes disponibles por color y tallo
+      And cada valor es lo cosechado menos lo pedido
+
+    @HU-02 @RF-02
+    Scenario: Sin stock
+      Given no existen cosechas registradas
+      When consulto el stock
+      Then el sistema muestra 0 paquetes por color y tallo
+      And muestra el mensaje "Sin stock disponible"
+
