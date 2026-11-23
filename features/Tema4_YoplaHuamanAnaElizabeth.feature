@@ -72,3 +72,22 @@ Feature: Backlog ECOFLOR, criterios de aceptación de las historias clave
       Then el sistema guarda el cliente
       And queda disponible para elegirlo en un pedido
 
+  Rule: HU-05 Estado del pedido (RF-05)
+    Como administrador
+    Quiero ver y cambiar el estado del pedido (Pendiente, Enviado, Entregado)
+    Para saber qué pedidos faltan enviar
+
+    @HU-05 @RF-05
+    Scenario: Cambio de estado
+      Given un pedido en estado "Pendiente"
+      When registro que fue entregado al bus
+      Then el estado cambia a "Enviado"
+      And queda guardada la fecha del cambio
+
+    @HU-05 @RF-05
+    Scenario: Retroceso de estado
+      Given un pedido en estado "Entregado"
+      When intento cambiarlo a "Pendiente"
+      Then el sistema no cambia el estado
+      And muestra "No se puede retroceder el estado"
+
