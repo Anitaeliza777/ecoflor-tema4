@@ -91,3 +91,21 @@ Feature: Backlog ECOFLOR, criterios de aceptación de las historias clave
       Then el sistema no cambia el estado
       And muestra "No se puede retroceder el estado"
 
+  Rule: HU-07 Total automático del pedido (RF-07)
+    Como administrador
+    Quiero que el sistema calcule el total según tallo (50cm S/20, 60cm S/23, 70-90cm S/26)
+    Para evitar errores de cobro
+
+    @HU-07 @RF-07
+    Scenario: Cálculo del total
+      Given un pedido con 10 paquetes de tallo 50cm y 5 de tallo 70cm
+      When el sistema calcula el total
+      Then el total es S/ 330 (10 x 20 + 5 x 26)
+
+    @HU-07 @RF-07
+    Scenario: Tallo sin tarifa
+      Given un pedido con 5 paquetes de tallo 40cm
+      When el sistema calcula el total
+      Then el sistema no calcula el total
+      And muestra "Tallo sin tarifa definida"
+
