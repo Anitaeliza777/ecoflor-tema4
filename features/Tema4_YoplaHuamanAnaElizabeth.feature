@@ -109,3 +109,21 @@ Feature: Backlog ECOFLOR, criterios de aceptación de las historias clave
       Then el sistema no calcula el total
       And muestra "Tallo sin tarifa definida"
 
+  Rule: HU-08 Registrar pagos (RF-08)
+    Como socio
+    Quiero registrar los pagos recibidos por pedido
+    Para saber cuánto me debe cada cliente
+
+    @HU-08 @RF-08
+    Scenario: Pago parcial
+      Given un pedido con total S/ 330
+      When registro un pago de S/ 200
+      Then el saldo pendiente es S/ 130
+      And el pedido figura como "Pago parcial"
+
+    @HU-08 @RF-08
+    Scenario: Pago mayor al saldo
+      Given un pedido con saldo pendiente S/ 130
+      When registro un pago de S/ 150
+      Then el sistema no registra el pago
+      And muestra "El pago excede el saldo pendiente"
