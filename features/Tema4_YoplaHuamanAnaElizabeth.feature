@@ -60,3 +60,15 @@ Feature: Backlog ECOFLOR, criterios de aceptación de las historias clave
       Then el sistema no guarda el pedido
       And muestra "Seleccione un cliente"
 
+  Rule: HU-04 Registrar cliente mayorista (RF-04)
+    Como administrador
+    Quiero registrar a cada cliente mayorista (nombre, teléfono, ciudad)
+    Para contactarlo rápido y ligarlo a sus pedidos
+
+    @HU-04 @RF-04
+    Scenario: Cliente válido
+      Given estoy en la pantalla de clientes
+      When registro un cliente con nombre "Florería Norte", teléfono 987654321 y ciudad Chiclayo
+      Then el sistema guarda el cliente
+      And queda disponible para elegirlo en un pedido
+
