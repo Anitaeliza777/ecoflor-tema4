@@ -41,3 +41,22 @@ Feature: Backlog ECOFLOR, criterios de aceptación de las historias clave
       Then el sistema muestra 0 paquetes por color y tallo
       And muestra el mensaje "Sin stock disponible"
 
+  Rule: HU-03 Registrar pedido (RF-03)
+    Como administrador
+    Quiero registrar un pedido (cliente, cantidad, colores y tallo)
+    Para dejar de depender de mensajes sueltos de WhatsApp
+
+    @HU-03 @RF-03
+    Scenario: Pedido válido
+      Given el cliente existe en el sistema
+      When registro un pedido de 30 paquetes (15 rosados y 15 rojos)
+      Then el sistema crea el pedido con estado "Pendiente"
+      And genera un número único de pedido
+
+    @HU-03 @RF-03
+    Scenario: Pedido sin cliente
+      Given estoy registrando un pedido
+      When intento guardarlo sin elegir cliente
+      Then el sistema no guarda el pedido
+      And muestra "Seleccione un cliente"
+
